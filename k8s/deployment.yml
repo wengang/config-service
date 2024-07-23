@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-service
+  labels:
+    app: config-service
+spec:
+  selector:
+    matchLabels:
+      app: config-service
+  replicas: 1
+  template:
+    metadata:
+      name: config-service
+      labels:
+        app: config-service
+    spec:
+      containers:
+        - name: config-service
+          image: config-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8888
+          env:
+            - name: BPL_JVM_THREAD_COUNT
+              value: "50"
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+
